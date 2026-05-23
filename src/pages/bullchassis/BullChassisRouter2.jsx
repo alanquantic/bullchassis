@@ -1,0 +1,490 @@
+import { useEffect, useLayoutEffect, useState } from 'react';
+import MirroredPage from './MirroredPage.jsx';
+import { blogPosts } from './blogPosts.js';
+import { homeHeroAssets, productCatalog } from './siteContent.js';
+
+const bodyClassName =
+  'home wp-singular page-template-default page page-id-57 wp-theme-transx wp-child-theme-transx-child theme-transx woocommerce-js elementor-default elementor-kit-10 elementor-page elementor-page-57';
+
+const productByPath = new Map(productCatalog.map((product) => [`/product/${product.slug}/`, product]));
+const aboutUsProductSlugs = [
+  '53gn-slider-tandem-container-chassis-usa',
+  '20-40-extendable-tandem-container-chassis-with-psi-usa',
+  '20-40-extendable-tandem-container-chassis-usa',
+  '20-sl-tandem-container-chassis-usa',
+  '80-ton-low-bed-trailer-truck-portacontenedor',
+  '40-gooseneck',
+  '40-lightweight-four-axle-chassis',
+  '20ft-iso-tank-container-chassis',
+  '40-45-48-53-extendable-triaxle-container-chassis',
+  '20-40-45-extendable-triaxle-container-chassis',
+  '40ft-gooseneck-lightweight',
+  '40ft-gooseneck-triaxle',
+  '40-45-extendable-container-chassis',
+  '33-slider-tri-axle-container-chassis',
+  '20-40-12-pins-triaxle-container-chassis',
+  '20-40-slider-12-pins-tandem',
+].map((slug) => productCatalog.find((product) => product.slug === slug)).filter(Boolean);
+
+const archiveProductSlugs = [
+  '20-sl-tandem-container-chassis-usa',
+  '20-40-extendable-tandem-container-chassis-usa',
+  '20-40-extendable-tandem-container-chassis-with-psi-usa',
+  '20-40-12-pins-triaxle-container-chassis',
+  '20-40-slider-12-pins-tandem',
+  '20-40-45-extendable-triaxle-container-chassis',
+  '20ft-iso-tank-container-chassis',
+  '33-slider-tri-axle-container-chassis',
+  '40-gooseneck',
+  '40-lightweight-four-axle-chassis',
+  '40-45-extendable-container-chassis',
+  '40-45-48-53-extendable-triaxle-container-chassis',
+  '40ft-gooseneck-lightweight',
+  '40ft-gooseneck-triaxle',
+  '53gn-slider-tandem-container-chassis-usa',
+  '80-ton-low-bed-trailer-truck-portacontenedor',
+].map((slug) => productCatalog.find((product) => product.slug === slug)).filter(Boolean);
+
+const blogCategories = [
+  { name: 'chasis de contenedor', count: 3 },
+  { name: 'container chassis', count: 11 },
+  { name: 'Uncategorized', count: 2 },
+];
+const blogTags = ['container chassis', 'pandemics', 'port chassis'];
+
+function normalizePath(pathname = '/') {
+  if (!pathname) return '/';
+  const normalized = pathname.endsWith('/') ? pathname : `${pathname}/`;
+  return normalized.replace(/\/+/g, '/');
+}
+
+function useRouteState() {
+  const [pathname, setPathname] = useState(() => normalizePath(window.location.pathname));
+
+  useEffect(() => {
+    const handlePopState = () => setPathname(normalizePath(window.location.pathname));
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  return pathname;
+}
+
+function navigateTo(pathname) {
+  const nextPath = normalizePath(pathname);
+  if (nextPath === normalizePath(window.location.pathname)) return;
+  window.history.pushState({}, '', nextPath);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+}
+
+function InternalLink({ to, className, children, ariaLabel }) {
+  return (
+    <a
+      href={to}
+      className={className}
+      aria-label={ariaLabel}
+      onClick={(event) => {
+        event.preventDefault();
+        navigateTo(to);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }}
+    >
+      {children}
+    </a>
+  );
+}
+
+function blogPostPath(slug, spanish = false) {
+  return spanish ? `/es/blog/${slug}/` : `/blog/${slug}/`;
+}
+
+function productPath(product, spanish = false) {
+  return spanish ? `/es/producto/${product.slug}/` : `/product/${product.slug}/`;
+}
+
+function Shell({ title, spanish = false, pathname, mainClassName = '', children }) {
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  useLayoutEffect(() => {
+    document.body.className = bodyClassName;
+    return () => {
+      document.body.className = '';
+    };
+  }, []);
+
+  return (
+    <div className="bull-site-shell">
+      <main className={`bull-site-shell__main ${mainClassName}`.trim()} data-pathname={pathname} data-lang={spanish ? 'es' : 'en'}>
+        {children}
+      </main>
+    </div>
+  );
+}
+
+function ListingPage({ title, spanish = false }) {
+  return (
+    <Shell title={title} spanish={spanish} pathname={spanish ? '/es/productos/' : '/products/'}>
+      <section className="bull-listing bull-listing--archive">
+        <div className="bull-listing__header">
+          <p className="bull-hero__eyebrow">{spanish ? 'Catálogo' : 'Catalog'}</p>
+          <h1 className="bull-listing__archive-title">{spanish ? 'Productos' : 'Products'}</h1>
+          <p>{spanish ? 'Explora nuestro catálogo de chasis y soluciones de transporte.' : 'Explore our chassis catalog and transport solutions.'}</p>
+        </div>
+        <div className="bull-product-grid bull-product-grid--listing">
+          {archiveProductSlugs.map((product) => (
+            <article key={product.slug} className="bull-product-card bull-product-card--archive">
+              <InternalLink to={productPath(product, spanish)} className="bull-product-card__media bull-product-card__media--square">
+                <img src={productArchiveThumb(product)} alt={spanish ? product.titleEs : product.title} />
+              </InternalLink>
+              <div className="bull-product-card__body bull-product-card__body--archive">
+                <h3>{spanish ? product.titleEs : product.title}</h3>
+                <p>{spanish ? product.summaryEs : product.summary}</p>
+                <InternalLink to={productPath(product, spanish)} className="bull-product-card__readmore">
+                  {spanish ? 'Ver producto' : 'View product'}
+                </InternalLink>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </Shell>
+  );
+}
+
+function ProductPage({ product, spanish = false }) {
+  const relatedProducts = (product.related || [])
+    .map((slug) => productCatalog.find((item) => item.slug === slug))
+    .filter(Boolean);
+
+  return (
+    <Shell title={`${spanish ? product.titleEs : product.title} - bullchassis`} spanish={spanish} pathname={productPath(product, spanish)}>
+      <section className="bull-product">
+        <div className="bull-product__gallery">
+          <img src={product.gallery?.[0] || product.image} alt={spanish ? product.titleEs : product.title} />
+        </div>
+        <div className="bull-product__summary">
+          <p className="bull-hero__eyebrow">{spanish ? 'Producto' : 'Product'}</p>
+          <h1>{spanish ? product.titleEs : product.title}</h1>
+          <p>{spanish ? product.summaryEs : product.summary}</p>
+          <div className="bull-product__actions">
+            <a href="#contact" className="bull-button bull-button--solid">{spanish ? 'Pedir cotización' : 'Get a Quote'}</a>
+            <InternalLink to={spanish ? '/es/productos/' : '/products/'} className="bull-button bull-button--ghost">
+              {spanish ? 'Volver al catálogo' : 'Back to catalog'}
+            </InternalLink>
+          </div>
+          <dl className="bull-specs">
+            {product.specs.map(([label, value]) => (
+              <div key={label} className="bull-specs__row">
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {relatedProducts.length > 0 && (
+        <section className="bull-panel">
+          <div className="bull-panel__header">
+            <h2>{spanish ? 'Productos relacionados' : 'Related products'}</h2>
+          </div>
+          <div className="bull-product-grid bull-product-grid--related">
+            {relatedProducts.map((item) => (
+              <article key={item.slug} className="bull-product-card bull-product-card--compact">
+                <InternalLink to={productPath(item, spanish)} className="bull-product-card__media">
+                  <img src={item.image} alt={spanish ? item.titleEs : item.title} />
+                </InternalLink>
+                <div className="bull-product-card__body">
+                  <h3>{spanish ? item.titleEs : item.title}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+    </Shell>
+  );
+}
+
+function AboutUsMirrorPage({ spanish = false }) {
+  const title = spanish ? 'Sobre Nosotros - bullchassis' : 'About Us - bullchassis';
+  return (
+    <Shell title={title} spanish={spanish} pathname={spanish ? '/es/sobre-nosotros/' : '/about-us/'}>
+      <section className="bull-listing">
+        <div className="bull-listing__header">
+          <p className="bull-hero__eyebrow">{spanish ? 'Compañía' : 'Company'}</p>
+          <h1>{spanish ? 'Sobre Nosotros' : 'About Us'}</h1>
+          <p>
+            {spanish
+              ? 'Bull Chassis fabrica soluciones de transporte robustas para la industria intermodal en Norteamérica.'
+              : 'Bull Chassis manufactures robust transport solutions for the intermodal industry across North America.'}
+          </p>
+        </div>
+      </section>
+
+      <section className="bull-panel">
+        <div className="bull-panel__header">
+          <h2>{spanish ? 'Líneas destacadas' : 'Featured lines'}</h2>
+        </div>
+        <div className="bull-product-grid bull-product-grid--listing">
+          {aboutUsProductSlugs.slice(0, 6).map((product) => (
+            <article key={product.slug} className="bull-product-card">
+              <InternalLink to={productPath(product, spanish)} className="bull-product-card__media">
+                <img src={productArchiveThumb(product)} alt={spanish ? product.titleEs : product.title} />
+              </InternalLink>
+              <div className="bull-product-card__body">
+                <h3>{spanish ? product.titleEs : product.title}</h3>
+                <p>{spanish ? product.summaryEs : product.summary}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </Shell>
+  );
+}
+
+function BlogArchivePage({ spanish = false }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 5;
+  const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
+  const start = (currentPage - 1) * POSTS_PER_PAGE;
+  const pagePosts = blogPosts.slice(start, start + POSTS_PER_PAGE);
+  const recentPosts = blogPosts.slice(0, 5);
+
+  function goToPage(page) {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0 });
+  }
+
+  return (
+    <Shell title="Blog - bullchassis" spanish={spanish} pathname={spanish ? '/es/blog/' : '/blog/'} mainClassName="bull-site-shell__main--blog">
+      <div className="bull-blog-layout">
+
+        {/* ── Main column ── */}
+        <div className="bull-blog-main">
+          {pagePosts.map((post) => (
+            <article key={post.slug} className="bull-blog-card">
+              <InternalLink to={blogPostPath(post.slug, spanish)} className="bull-blog-card__img-wrap">
+                <img src={post.image} alt={post.title} className="bull-blog-card__img" />
+              </InternalLink>
+              <div className="bull-blog-card__body">
+                <div className="bull-blog-card__meta">
+                  <a href="#" className="bull-blog-card__cat">{post.category}</a>
+                  <span className="bull-blog-card__byline">
+                    {post.date} / {spanish ? 'por' : 'by'} {post.author}
+                  </span>
+                </div>
+                <h2 className="bull-blog-card__title">
+                  <InternalLink to={blogPostPath(post.slug, spanish)}>{post.title}</InternalLink>
+                </h2>
+                <p className="bull-blog-card__excerpt">{post.excerpt}</p>
+                <InternalLink to={blogPostPath(post.slug, spanish)} className="bull-blog-card__more">
+                  {spanish ? 'Explorar más' : 'Explore More'}
+                </InternalLink>
+              </div>
+            </article>
+          ))}
+
+          {totalPages > 1 && (
+            <nav className="bull-pagination bull-pagination--blog" aria-label="Blog pages">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  className={`bull-pagination__btn${page === currentPage ? ' bull-pagination__btn--current' : ''}`}
+                  onClick={() => goToPage(page)}
+                  aria-current={page === currentPage ? 'page' : undefined}
+                >
+                  {page}
+                </button>
+              ))}
+              {currentPage < totalPages && (
+                <button
+                  className="bull-pagination__btn bull-pagination__btn--next"
+                  onClick={() => goToPage(currentPage + 1)}
+                >
+                  {spanish ? 'Siguiente →' : 'Next →'}
+                </button>
+              )}
+            </nav>
+          )}
+        </div>
+
+        {/* ── Sidebar ── */}
+        <aside className="bull-blog-sidebar">
+          {/* Search */}
+          <div className="bull-blog-widget">
+            <h3 className="bull-blog-widget__title">{spanish ? 'Buscar' : 'Search'}</h3>
+            <div className="bull-blog-search">
+              <input
+                type="text"
+                placeholder={spanish ? 'Buscar…' : 'Search…'}
+                className="bull-blog-search__input"
+                readOnly
+              />
+              <button className="bull-blog-search__btn" aria-label={spanish ? 'Buscar' : 'Search'}>
+                <i className="fas fa-search" />
+              </button>
+            </div>
+          </div>
+
+          {/* Recent Posts */}
+          <div className="bull-blog-widget">
+            <h3 className="bull-blog-widget__title">{spanish ? 'Publicaciones recientes' : 'Recent Posts'}</h3>
+            <ul className="bull-blog-recent">
+              {recentPosts.map((post) => (
+                <li key={post.slug} className="bull-blog-recent__item">
+                  <InternalLink to={blogPostPath(post.slug, spanish)}>{post.title}</InternalLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Categories */}
+          <div className="bull-blog-widget">
+            <h3 className="bull-blog-widget__title">{spanish ? 'Categorías' : 'Categories'}</h3>
+            <ul className="bull-blog-cats">
+              {blogCategories.map((cat) => (
+                <li key={cat.name} className="bull-blog-cats__item">
+                  <a href="#">{cat.name}</a>
+                  <span>({cat.count})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tags */}
+          <div className="bull-blog-widget">
+            <h3 className="bull-blog-widget__title">{spanish ? 'Etiquetas' : 'Tags'}</h3>
+            <div className="bull-blog-tags">
+              {blogTags.map((tag) => (
+                <a key={tag} href="#" className="bull-blog-tags__tag">{tag}</a>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </Shell>
+  );
+}
+
+function BlogPostPage({ post, spanish = false }) {
+  return (
+    <Shell
+      title={`${post.title} - bullchassis`}
+      pathname={spanish ? '/es/blog/' : '/blog/'}
+      mainClassName="bull-site-shell__main--post"
+    >
+      <article className="bull-post">
+        <div className="bull-post__container">
+          <h1 className="bull-post__title">{post.title}</h1>
+        </div>
+        <img src={post.image} alt={post.title} className="bull-post__hero" />
+        <div className="bull-post__container">
+          <div className="bull-post__meta">
+            <span className="bull-post__date">{post.date}</span>
+            <span className="bull-post__sep"> | </span>
+            <span className="bull-post__author">{spanish ? 'por' : 'by'} {post.author}</span>
+          </div>
+          <div className="bull-post__content">
+            {post.contentHtml ? (
+              <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+            ) : (
+              post.content.map((block, i) => {
+                if (block.type === 'h2') return <h2 key={i}>{block.text}</h2>;
+                if (block.type === 'h3') return <h3 key={i}>{block.text}</h3>;
+                if (block.type === 'ul') {
+                  return (
+                    <ul key={i}>
+                      {block.items.map((item, j) => <li key={j}>{item}</li>)}
+                    </ul>
+                  );
+                }
+                return <p key={i}>{block.text}</p>;
+              })
+            )}
+          </div>
+          <InternalLink to={spanish ? '/es/blog/' : '/blog/'} className="bull-post__back">
+            {spanish ? '← Volver al blog' : '← Back to Blog'}
+          </InternalLink>
+        </div>
+      </article>
+    </Shell>
+  );
+}
+
+export default function BullChassisRouter2() {
+  const pathname = useRouteState();
+
+  if (pathname === '/' || pathname === '/index.html') {
+    return <MirroredPage />;
+  }
+
+  if (pathname === '/es/' || pathname === '/es/index.html') {
+    return <MirroredPage spanish />;
+  }
+
+  if (pathname === '/about-us/') {
+    return <AboutUsMirrorPage />;
+  }
+
+  if (pathname === '/es/sobre-nosotros/') {
+    return <AboutUsMirrorPage spanish />;
+  }
+
+  if (
+    pathname === '/products/' ||
+    pathname === '/shop/' ||
+    pathname === '/es/productos/' ||
+    pathname === '/es/tienda/' ||
+    pathname === '/productos/'
+  ) {
+    const isSpanish = pathname.startsWith('/es/') || pathname === '/productos/';
+    const title = isSpanish
+      ? (pathname === '/es/tienda/' ? 'Tienda - bullchassis' : 'Productos - bullchassis')
+      : (pathname === '/products/' ? 'Products - bullchassis' : 'Shop - bullchassis');
+    return <ListingPage title={title} spanish={isSpanish} />;
+  }
+
+  if (pathname === '/blog/' || pathname === '/es/blog/') {
+    return <BlogArchivePage spanish={pathname.startsWith('/es/')} />;
+  }
+
+  const product = productByPath.get(pathname);
+  if (product) {
+    return <ProductPage product={product} />;
+  }
+
+  if (pathname.startsWith('/es/producto/')) {
+    const match = productCatalog.find((item) => pathname.includes(item.slug));
+    if (match) {
+      return <ProductPage product={match} spanish />;
+    }
+  }
+
+  if (pathname.startsWith('/blog/') && pathname !== '/blog/') {
+    const slug = pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
+    const post = blogPosts.find((p) => p.slug === slug);
+    if (post) return <BlogPostPage post={post} />;
+  }
+
+  if (pathname.startsWith('/es/blog/') && pathname !== '/es/blog/') {
+    const slug = pathname.replace(/^\/es\/blog\//, '').replace(/\/$/, '');
+    const post = blogPosts.find((p) => p.slug === slug);
+    if (post) return <BlogPostPage post={post} spanish />;
+  }
+
+  return (
+    <Shell title="Bull Chassis">
+      <section className="bull-listing">
+        <div className="bull-listing__header">
+          <p className="bull-hero__eyebrow">Bull Chassis</p>
+          <h1>Page not found</h1>
+          <p>The requested route is not mapped in the local mirror.</p>
+        </div>
+      </section>
+    </Shell>
+  );
+}

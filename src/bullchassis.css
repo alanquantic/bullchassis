@@ -1,0 +1,23 @@
+@import './index.css';
+@import './pages/bullchassis/styles/mirror.css';
+@import './pages/bullchassis/MirroredPage.css';
+
+.transx_main_menu_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.transx_main_menu_container {
+  display: flex;
+  align-items: center;
+}
+
+body .quadmenu-navbar-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+body.body--bullchassis-es #video_header::before {
+  content: "Stock Disponible de Chasis Portacontenedor en Venta";
+}

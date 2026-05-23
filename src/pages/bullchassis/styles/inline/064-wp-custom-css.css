@@ -1,0 +1,325 @@
+
+			.elementor-lightbox .dialog-lightbox-close-button, .elementor-lightbox .elementor-swiper-button {
+    color: hsl(0deg 0% 0% / 90%)!important;
+    transition: all .1s;
+    opacity: 1;
+}
+
+
+.elementor-lightbox .elementor-lightbox-image {
+    box-shadow: none!important;
+    border-radius: 2px;
+}
+
+
+.elementor-lightbox{
+	background: rgba(255,255,255,0.8);
+}
+
+.pswp__bg{
+	background: rgba(255,255,255,0.95);
+}
+#block-11{
+	display: none;
+}
+.transx_prefooter_type_3{
+	display: flex;
+	justify-content: center;
+}
+#block-18 figure{
+	display: flex;
+	justify-content: center;
+}
+#quadmenu span{
+	font-family: "Exo 2", Sans-serif !important;
+}
+.transx_logo{
+	width: 200px !important;
+	height: 92px !important;
+	background-size: 200px 92px !important;
+}
+.quadmenu-navbar-nav > li:before{
+	content: "" !important;
+	height: 0 !important;
+}
+
+.transx_header_button a{
+	background-color: #F5BF44 !important; 
+}
+.transx_header_button_desktop{
+	background: #F5BF44 !important;
+}
+
+.transx_back_to_top_button{
+	border-color: #F5BF44 !important;
+	color: #F5BF44 !important;
+}
+.transx_back_to_top_button:hover{
+	background-color: black !important;
+}
+
+#video_header::before{
+	content: "Available Stock in Container Chassis for Sale";
+	font-family: "Exo 2";
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: transparent;
+    background-image: linear-gradient(180deg, #000000 0%, #F6BF45 100%);
+    opacity: 0.6;
+	opacity: 0.8;
+	color: white;
+	font-weight: 900;
+	font-size: 35px;
+  z-index: 1;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer-icons{
+	  width: 100%;
+    text-align: center;
+    font-size: 50px;
+    color: #f5bf44;
+}
+
+#contact_icon h3 span{
+	color: white !important;
+}
+
+#contact_phones a{
+	text-decoration: none;
+	color: white;
+}
+
+.footer_widget_wrapper h2{
+	color: white !important;
+	border-bottom: 1px solid #F5BF44;
+}
+.footer_widget_wrapper p{
+	padding: 10px 0px 0px 0px;
+	margin: 0px;
+}
+.footer_widget_wrapper p a{
+	text-decoration: none;
+}
+
+.wp-social-link{
+	color: white !important;
+}
+.wp-social-link-facebook::marker{
+	display: none !important;
+}
+
+#locations a{
+	color: black;
+	text-decoration: none;
+}
+
+#locations h3 span{
+	color: black !important;
+}
+#locations h3 {
+	margin-bottom: 10px !important;
+}
+
+#content_form{
+	display: flex;
+	width: 100%;
+	display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#content_form .form_input_50{
+	width: 50% !important;
+	box-sizing: border-box;
+	padding: 10px;
+}
+#content_form .form_input_100{
+	width: 100% !important;
+	box-sizing: border-box;
+}
+#content_form .form_input_100 label{
+	width: 100% !important;
+	box-sizing: border-box;
+}
+
+#btn_send input{
+	color: #F5BF44;
+	border-color: #F5BF44;
+}
+
+#btn_send input:hover{
+	color: white;
+	background: #F5BF44;
+}
+
+.slick-active button{
+	background: #F5BF44 !important;
+}
+.slick-dots button:hover{
+	background: #F5BF44 !important;
+}
+.footer_widget.widget_nav_menu ul.menu li a:after, .transx_donate_box_item .transx_button:hover, .transx_price_item .transx_price_button_container .transx_button:hover, .transx_causes_listing_wrapper.transx_view_type_1 .transx_featured_image_container .transx_category_container, .transx_causes_listing_wrapper.transx_view_type_1 .transx_donate_button_container .transx_button:hover, .transx_causes_listing_wrapper.transx_view_type_2 .transx_category_container, .transx_causes_listing_wrapper.transx_view_type_3 .transx_category_container, body .transx_causes_slider_widget .transx_slider_nav_button:hover, body .transx_testimonials_wrapper .transx_slider_nav_button:hover, body .transx_content_slider_wrapper .transx_slider_nav_button:hover, .transx_causes_slider_wrapper.transx_view_type_1 .transx_donate_button_container .transx_button:hover, .transx_content_slider_wrapper .transx_button:hover, .transx_standard_blog_listing .transx_blog_listing_categories a, .transx_causes_grid_wrapper .projects-masonry__badge, .transx_cause_item_wrapper .projects-masonry__badge, .transx_events_listing_wrapper .upcoming-item__date, .transx_stories_wrapper .transx_button:hover, .transx_causes_slider_wrapper.transx_view_type_3 .transx_button:hover, .transx_sidebar .widget_calendar table td a:after, .wp-block-calendar table td a:after, .footer_widget.widget_calendar table td a:after, body .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet:hover:before, body .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet.swiper-pagination-bullet-active:before, .transx_testimonials_wrapper .slick-dots li.slick-active:before, .transx_slider_arrows .slick-dots li.slick-active:before, .transx_tours_item_link:after, .transx_filter li:after, .transx_event_date_box, .transx_blog_listing_date_box, body form[id*=give-form] .give-donation-amount .give-currency-symbol.give-currency-position-before, .transx_up_heading_marker, .transx_tabs_widget .transx_video_trigger_button:hover .transx_button_icon, .transx_testimonials_wrapper.transx_view_type_1 .transx_testimonials_featured_image:after, .transx_testimonials_wrapper.transx_view_type_3 .transx_testimonials_featured_image:after, .transx_testimonials_wrapper.transx_view_type_2 .transx_testimonials_icon, .transx_testimonials_wrapper.transx_view_type_2:before, .transx_linked_icon_box_item, .transx_slider_arrows .slick-dots li:hover:before, .transx_about_donate a:after, .transx_content_slider_wrapper.transx_view_type_3 .transx_promo_video_container .transx_video_trigger i, .footer_widget .mc4wp-form input[type="submit"]:hover, .transx_content_slider_wrapper.transx_view_type_5 .transx_additional_info_container .transx_additional_info a:after, .transx_blog_carousel_widget .transx_tour_link:after, .transx_video_widget .view_type_2 .transx_video_trigger_button .transx_button_icon, .transx_custom_products_list.view_type_2 .transx_custom_product_image_cont .add_to_cart_button, .transx_mobile_menu_container .quadmenu-navbar-nav > li.current-menu-ancestor > a:after, .transx_mobile_menu_container .transx_main-menu > li.current-menu-ancestor > a:after, body .transx_causes_slider_widget .transx_button:hover, .transx_tours_carousel_widget .transx_tour_link:after, .transx_lower-menu li:after, .transx_aside-dropdown__inner .transx_aside-menu a:after, .transx_cart-trigger__count, .transx_testimonials_wrapper .slick-dots li.slick-active button, .transx_slider_arrows .slick-dots li.slick-active button, .transx_testimonials_wrapper .slick-dots li:hover button, .transx_slider_arrows .slick-dots li:hover button, body .transx_calc_distance_container .irs--flat .irs-bar, body .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet:before, .transx_tabs_titles_container .transx_tab_title_item:before, .transx_footer_menu_2 li a:after, .transx_back_to_top_button:hover, .transx_tagline_info_cont:before, .transx_tagline_socials_title:after, .transx_shipping_form_container input[type="submit"] {
+    background: #F5BF44 ;
+}
+
+.transx_post_cat_wrapper{
+	background: #F5BF44 !important;
+}
+.transx_post_cat_wrapper a:hover{
+	color: black !important;
+}
+
+.transx_img--bg{
+	object-fit: fill !important;
+}
+.transx_blog_slider_meta{
+	display: none;
+}
+.transx_blog_title a:hover{
+	color: #F5BF44 !important;
+}
+.col-xl-8{
+	overflow: hidden;
+}
+.transx_button{
+	color: #F5BF44;
+	border-color: #F5BF44;
+}
+.transx_button:hover{
+	background: #F5BF44;
+	color: white;
+	border-color: #F5BF44;
+}
+.transx_blog_listing_meta{
+	color: #F5BF44;
+}
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+    margin-bottom: 30px;
+    background: white;
+		padding: 10px !important;
+}
+.product_type_simple{
+	display: block !important;
+}
+
+.woocommerce ul.products li.product .button {
+	text-align: center;
+	display: block !important;
+	color: black !important;
+	font-size: 16px;
+	background-image: none;
+	width: 40%;
+	text-decoration: none;
+	bottom: 0;
+	left: 30%;
+	border-color: #F5BF44 !important;
+}
+.woocommerce-LoopProduct-link{
+	margin-bottom: 50px;
+}
+
+p,span,li,ul,a,div{
+	font-family: "Exo 2" !important;
+}
+h2,h3,h4,h5{
+	font-family: "Exo 2"  !important;
+	font-weight: bolder;
+}
+h2{
+	font-size: 40px !important;
+}
+h3{
+	font-size: 35px;
+}
+.elementor-counter-title, p,li,ul{
+	font-size: 16px;
+} 
+a{
+	text-decoration: none !important;
+}
+
+/*li.type-product:hover:before{
+	content: "Read More";
+	position: absolute;
+	background-color: black;
+	color: white;
+	padding: 10px;
+	left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}*/
+.page-numbers li a{
+	border-color: black !important;
+	color: black !important;
+}
+
+.page-numbers .current{
+	border-color: black !important;
+	color: white !important;
+	background: black !important;
+}
+
+.elementor-headline span{
+	color: #54595F !important;
+}
+
+.transx_cart-trigger{
+	display: none !important;
+}
+.woocommerce-loop-product__title{
+	color: black !important;
+	font-weight: 400 !important;
+	font-size: 16px !important; 
+}
+.wpml-ls-statics-footer{
+	display: none;
+}
+
+.search_post button{
+	border-color: #F5BF44 !important;
+}
+
+.search_post button:hover{
+	border-color: #F5BF44 !important;
+	background-color:  #F5BF44 !important;
+}
+
+.recent_posts a:hover{
+	color: #F5BF44 !important;
+}
+
+#categories-2{
+	font-family: "Exo 2";
+}
+#categories-2 a{
+	color: #F5BF44 !important;
+}
+#tag_cloud-1{
+	font-family: "Exo 2";
+}
+
+#tag_cloud-1 a{
+	color: #F5BF44 !important;
+	font-size: 17px !important;
+	border: 1px solid #F5BF44;
+	padding: 5px;
+	display: inline-block;
+}
+.transx_pagination span{
+	background-color: #F5BF44 !important;
+	border-color: #F5BF44 !important;
+}
+
+.transx_pagination a{
+	border-color: #F5BF44 !important;
+}
+
+.transx_pagination a:hover{
+	background-color: #F5BF44 !important;
+}
+		
