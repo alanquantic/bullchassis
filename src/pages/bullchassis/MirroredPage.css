@@ -1267,6 +1267,31 @@ body .transx_page-wrapper {
   background: #fff !important;
 }
 
+.bull-hidden-honeypot {
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: auto;
+}
+
+.bull-form-status {
+  font-size: 14px;
+  margin: 12px 0 0;
+}
+
+.bull-form-status--success {
+  color: #1f7a1f;
+}
+
+.bull-form-status--error {
+  color: #b42318;
+}
+
+.bull-form-status--submitting {
+  color: #6b7280;
+}
+
 /* ── Products archive listing page ───────────────────────── */
 
 .bull-listing--archive {

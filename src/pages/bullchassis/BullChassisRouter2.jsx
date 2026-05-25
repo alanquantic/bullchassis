@@ -102,23 +102,244 @@ function productPath(product, spanish = false) {
   return spanish ? `/es/producto/${product.slug}/` : `/product/${product.slug}/`;
 }
 
+function ShellCopy(spanish = false) {
+  return {
+    home: 'HOME',
+    about: spanish ? 'NOSOTROS' : 'ABOUT US',
+    products: spanish ? 'PRODUCTOS' : 'PRODUCTS',
+    contact: spanish ? 'CONTACTO' : 'CONTACT',
+    blog: 'BLOG',
+    contactUs: spanish ? 'CONTÁCTANOS' : 'CONTACT US',
+  };
+}
+
+function ShellHeader({ spanish = false }) {
+  const copy = ShellCopy(spanish);
+  const localePath = spanish ? '/es/' : '/';
+  const aboutPath = spanish ? '/es/sobre-nosotros/' : '/about-us/';
+  const productsPath = spanish ? '/es/productos/' : '/products/';
+  const blogPath = spanish ? '/es/blog/' : '/blog/';
+  const contactPath = `${localePath}#contacto`;
+
+  return (
+    <>
+      <div className="bull-language-switcher wpml-elementor-ls" aria-label="Language selector">
+        <ul className="wpml-ls-statics-shortcode_actions wpml-ls wpml-ls-legacy-list-vertical">
+          <li className={`wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-en wpml-ls-first-item wpml-ls-item-legacy-list-vertical ${!spanish ? 'wpml-ls-current-language' : ''}`.trim()}>
+            <InternalLink to="/" className="wpml-ls-link" ariaLabel="Switch language to English">
+              <img
+                className="wpml-ls-flag webpexpress-processed"
+                src="/bullchassis/assets/bullchassis.com/wp-content/uploads/flags/icons8-estados-unidos-48.png"
+                srcSet="/bullchassis/assets/bullchassis.com/wp-content/webp-express/webp-images/uploads/flags/icons8-estados-unidos-48.png.webp"
+                alt="English"
+              />
+            </InternalLink>
+          </li>
+          <li className={`wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-es wpml-ls-last-item wpml-ls-item-legacy-list-vertical ${spanish ? 'wpml-ls-current-language' : ''}`.trim()}>
+            <InternalLink to="/es/" className="wpml-ls-link" ariaLabel="Cambiar idioma a Español">
+              <img
+                className="wpml-ls-flag webpexpress-processed"
+                src="/bullchassis/assets/bullchassis.com/wp-content/uploads/flags/bandera_mx.png"
+                srcSet="/bullchassis/assets/bullchassis.com/wp-content/webp-express/webp-images/uploads/flags/bandera_mx.png.webp"
+                alt="Español"
+              />
+            </InternalLink>
+          </li>
+        </ul>
+      </div>
+
+      <header className="bull-shell-header transx_header transx_page-header transx_transparent_header_off transx_header_view_type_1 transx_tagline_off transx_header_button_on transx_side_panel_off">
+        <div className="container-fluid">
+          <div className="row align-items-center">
+            <div className="col-8 col-md-6 col-lg-3 d-flex align-items-center">
+              <InternalLink to={localePath} className="transx_logo transx_retina_on" ariaLabel="Bull Chassis home" />
+            </div>
+            <div className="transx_main_menu_wrapper col-lg-5 d-flex justify-content-center">
+              <div className="transx_main_menu_container">
+                <nav
+                  id="quadmenu"
+                  className="quadmenu-default_theme quadmenu-v3.3.2 quadmenu-align-right quadmenu-divider-hide quadmenu-carets-hide quadmenu-background-color quadmenu-mobile-shadow-hide quadmenu-dropdown-shadow-hide menu_header quadmenu-is-embed"
+                  data-template="embed"
+                  data-theme="default_theme"
+                  data-unwrap={1}
+                  data-breakpoint={768}
+                >
+                  <div className="quadmenu-container">
+                    <div id="quadmenu_0" className="quadmenu-navbar-collapse collapsed in">
+                      <ul className="quadmenu-navbar-nav">
+                        <li className="quadmenu-item quadmenu-item-level-0 quadmenu-has-title quadmenu-has-link quadmenu-has-background quadmenu-dropdown-right">
+                          <InternalLink to={localePath}>
+                            <span className="quadmenu-item-content">
+                              <span className="quadmenu-text hover t_1000">{copy.home}</span>
+                            </span>
+                          </InternalLink>
+                        </li>
+                        <li className="quadmenu-item quadmenu-item-level-0 quadmenu-has-title quadmenu-has-link quadmenu-has-background quadmenu-dropdown-right">
+                          <InternalLink to={aboutPath}>
+                            <span className="quadmenu-item-content">
+                              <span className="quadmenu-text hover t_1000">{copy.about}</span>
+                            </span>
+                          </InternalLink>
+                        </li>
+                        <li className="quadmenu-item quadmenu-item-level-0 quadmenu-has-title quadmenu-has-link quadmenu-has-background quadmenu-dropdown-right">
+                          <InternalLink to={productsPath}>
+                            <span className="quadmenu-item-content">
+                              <span className="quadmenu-text hover t_1000">{copy.products}</span>
+                            </span>
+                          </InternalLink>
+                        </li>
+                        <li className="quadmenu-item quadmenu-item-level-0 quadmenu-has-title quadmenu-has-link quadmenu-has-background quadmenu-dropdown-right">
+                          <a href={contactPath}>
+                            <span className="quadmenu-item-content">
+                              <span className="quadmenu-text hover t_1000">{copy.contact}</span>
+                            </span>
+                          </a>
+                        </li>
+                        <li className="quadmenu-item quadmenu-item-level-0 quadmenu-has-title quadmenu-has-link quadmenu-has-background quadmenu-dropdown-right">
+                          <InternalLink to={blogPath}>
+                            <span className="quadmenu-item-content">
+                              <span className="quadmenu-text hover t_1000">{copy.blog}</span>
+                            </span>
+                          </InternalLink>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div className="col-4 col-md-6 col-lg-4 d-flex justify-content-end align-items-center">
+              <div className="transx_hamburger transx_dropdown-trigger d-inline-block d-md-none transx_side_panel_off">
+                <div className="transx_hamburger-inner" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href={contactPath} className="transx_alt_header_button transx_header_button_desktop">
+          {copy.contactUs}
+        </a>
+      </header>
+    </>
+  );
+}
+
+function ShellFooter({ spanish = false }) {
+  return (
+    <>
+      <div className="transx_footer_container">
+        <div className="transx_prefooter_container">
+          <div className="container">
+            <div className="transx_prefooter_wrapper transx_prefooter_type_3">
+              <div id="block-13" className="widget footer_widget widget_block">
+                <div className="footer_widget_wrapper">
+                  <div className="wp-block-group">
+                    <div className="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained">
+                      <div id="footer-icons">
+                        <i aria-hidden="true" className="fas fa-phone-alt" />
+                      </div>
+                      <h2 className="wp-block-heading has-text-align-center">
+                        {spanish ? 'Contáctanos' : 'Contact Us'}
+                      </h2>
+                      <p className="has-text-align-center">
+                        <a href="tel:8444242774">(844) 4 CHASSIS - (844) 424 2774</a>
+                      </p>
+                      <p className="has-text-align-center">
+                        <a href="tel:4422579946">442 257 9946</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="block-18" className="widget footer_widget widget_block">
+                <div className="footer_widget_wrapper">
+                  <div className="wp-block-group">
+                    <div className="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        role="navigation"
+        aria-label="Language Switcher"
+        className="wpml-ls-statics-footer wpml-ls wpml-ls-legacy-list-horizontal"
+      >
+        <ul>
+          <li className={`wpml-ls-slot-footer wpml-ls-item wpml-ls-item-en wpml-ls-first-item wpml-ls-item-legacy-list-horizontal ${!spanish ? 'wpml-ls-current-language' : ''}`.trim()}>
+            <InternalLink
+              to="/"
+              className="wpml-ls-link"
+              ariaLabel="Switch to English (English)"
+            >
+              <picture>
+                <source
+                  srcSet="/bullchassis/assets/bullchassis.com/wp-content/webp-express/webp-images/uploads/flags/icons8-estados-unidos-48.png.webp"
+                  type="image/webp"
+                />
+                <img
+                  className="wpml-ls-flag webpexpress-processed"
+                  src="/bullchassis/assets/bullchassis.com/wp-content/uploads/flags/icons8-estados-unidos-48.png"
+                  alt=""
+                  loading="lazy"
+                  width={18}
+                  height={12}
+                />
+              </picture>
+              <span className="wpml-ls-native">English</span>
+            </InternalLink>
+          </li>
+          <li className={`wpml-ls-slot-footer wpml-ls-item wpml-ls-item-es wpml-ls-last-item wpml-ls-item-legacy-list-horizontal ${spanish ? 'wpml-ls-current-language' : ''}`.trim()}>
+            <InternalLink
+              to="/es/"
+              className="wpml-ls-link"
+              ariaLabel="Switch to Spanish (Español)"
+            >
+              <picture>
+                <source
+                  srcSet="/bullchassis/assets/bullchassis.com/wp-content/webp-express/webp-images/uploads/flags/bandera_mx.png.webp"
+                  type="image/webp"
+                />
+                <img
+                  className="wpml-ls-flag webpexpress-processed"
+                  src="/bullchassis/assets/bullchassis.com/wp-content/uploads/flags/bandera_mx.png"
+                  alt=""
+                  loading="lazy"
+                  width={18}
+                  height={12}
+                />
+              </picture>
+              <span className="wpml-ls-native">Español</span>
+            </InternalLink>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
 function Shell({ title, spanish = false, pathname, mainClassName = '', children }) {
   useEffect(() => {
     document.title = title;
   }, [title]);
 
   useLayoutEffect(() => {
-    document.body.className = bodyClassName;
+    const previousClassName = document.body.className;
+    document.body.className = `${bodyClassName}${spanish ? ' body--bullchassis-es' : ''}`;
     return () => {
-      document.body.className = '';
+      document.body.className = previousClassName;
     };
-  }, []);
+  }, [spanish]);
 
   return (
     <div className="bull-site-shell">
+      <ShellHeader spanish={spanish} />
       <main className={`bull-site-shell__main ${mainClassName}`.trim()} data-pathname={pathname} data-lang={spanish ? 'es' : 'en'}>
         {children}
       </main>
+      <ShellFooter spanish={spanish} />
     </div>
   );
 }

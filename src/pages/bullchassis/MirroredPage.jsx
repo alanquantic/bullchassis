@@ -23,6 +23,7 @@ const homeProducts = homeProductSlugs
   .map((slug) => productCatalog.find((product) => product.slug === slug))
   .filter(Boolean);
 const productsPerPage = 4;
+const initialFormStatus = { state: "idle", message: "" };
 
 const partnerImages = [
   {
@@ -286,6 +287,10 @@ const latestNewsPosts = [
 
 export default function MirroredPage({ spanish = false }) {
   const [productPage, setProductPage] = useState(1);
+  const [quoteFormStatus, setQuoteFormStatus] = useState({
+    mobile: initialFormStatus,
+    desktop: initialFormStatus,
+  });
   const localePath = spanish ? "/es/" : "/";
   const aboutPath = spanish ? "/es/sobre-nosotros/" : "/about-us/";
   const productPath = (slug) =>
@@ -324,6 +329,73 @@ export default function MirroredPage({ spanish = false }) {
     ourGallery: spanish ? "Nuestra galería" : "Our gallery",
     latestNews: spanish ? "Nuestras Últimas Noticias" : "Our Latest News",
   };
+
+  async function handleQuoteSubmit(event, formKey) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload = {
+      name: String(formData.get("form_fields[name]") || "").trim(),
+      email: String(formData.get("form_fields[email]") || "").trim(),
+      phone:
+        String(formData.get("form_fields[field_c8fc5cc]") || formData.get("form_fields[field_ffc519a]") || "").trim(),
+      company: String(formData.get("form_fields[field_624c46d]") || "").trim(),
+      message: String(formData.get("form_fields[message]") || "").trim(),
+      locale: spanish ? "es" : "en",
+      page: window.location.pathname,
+      formId: formKey,
+      website: String(formData.get("website") || "").trim(),
+    };
+
+    setQuoteFormStatus((current) => ({
+      ...current,
+      [formKey]: {
+        state: "submitting",
+        message: spanish ? "Enviando..." : "Sending...",
+      },
+    }));
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result?.error || "Unable to send message.");
+      }
+
+      form.reset();
+      setQuoteFormStatus((current) => ({
+        ...current,
+        [formKey]: {
+          state: "success",
+          message: spanish
+            ? "Tu solicitud fue enviada correctamente."
+            : "Your request was sent successfully.",
+        },
+      }));
+    } catch (error) {
+      setQuoteFormStatus((current) => ({
+        ...current,
+        [formKey]: {
+          state: "error",
+          message:
+            error instanceof Error && error.message
+              ? error.message
+              : spanish
+                ? "No se pudo enviar tu solicitud."
+                : "We could not send your request.",
+        },
+      }));
+    }
+  }
 
   useLayoutEffect(() => {
     document.title = copy.pageTitle;
@@ -2412,6 +2484,9 @@ export default function MirroredPage({ spanish = false }) {
                                           method="post"
                                           name="New Form"
                                           aria-label="New Form"
+                                          onSubmit={(event) =>
+                                            handleQuoteSubmit(event, "mobile")
+                                          }
                                         >
                                           <input
                                             type="hidden"
@@ -2432,6 +2507,14 @@ export default function MirroredPage({ spanish = false }) {
                                             type="hidden"
                                             name="queried_id"
                                             defaultValue={57}
+                                          />
+                                          <input
+                                            type="text"
+                                            name="website"
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                            className="bull-hidden-honeypot"
+                                            aria-hidden="true"
                                           />
                                           <div className="elementor-form-fields-wrapper elementor-labels-">
                                             <div className="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
@@ -2523,14 +2606,29 @@ export default function MirroredPage({ spanish = false }) {
                                               <button
                                                 className="elementor-button elementor-size-sm"
                                                 type="submit"
+                                                disabled={
+                                                  quoteFormStatus.mobile.state === "submitting"
+                                                }
                                               >
                                                 <span className="elementor-button-content-wrapper">
                                                   <span className="elementor-button-text">
-                                                    Send
+                                                    {quoteFormStatus.mobile.state === "submitting"
+                                                      ? spanish
+                                                        ? "Enviando..."
+                                                        : "Sending..."
+                                                      : "Send"}
                                                   </span>
                                                 </span>
                                               </button>
                                             </div>
+                                            {quoteFormStatus.mobile.state !== "idle" && (
+                                              <p
+                                                className={`bull-form-status bull-form-status--${quoteFormStatus.mobile.state}`}
+                                                role="status"
+                                              >
+                                                {quoteFormStatus.mobile.message}
+                                              </p>
+                                            )}
                                           </div>
                                         </form>
                                       </div>
@@ -2681,6 +2779,9 @@ export default function MirroredPage({ spanish = false }) {
                                           method="post"
                                           name="New Form"
                                           aria-label="New Form"
+                                          onSubmit={(event) =>
+                                            handleQuoteSubmit(event, "desktop")
+                                          }
                                         >
                                           <input
                                             type="hidden"
@@ -2701,6 +2802,14 @@ export default function MirroredPage({ spanish = false }) {
                                             type="hidden"
                                             name="queried_id"
                                             defaultValue={57}
+                                          />
+                                          <input
+                                            type="text"
+                                            name="website"
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                            className="bull-hidden-honeypot"
+                                            aria-hidden="true"
                                           />
                                           <div className="elementor-form-fields-wrapper elementor-labels-">
                                             <div className="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
@@ -2790,14 +2899,29 @@ export default function MirroredPage({ spanish = false }) {
                                               <button
                                                 className="elementor-button elementor-size-sm"
                                                 type="submit"
+                                                disabled={
+                                                  quoteFormStatus.desktop.state === "submitting"
+                                                }
                                               >
                                                 <span className="elementor-button-content-wrapper">
                                                   <span className="elementor-button-text">
-                                                    Send
+                                                    {quoteFormStatus.desktop.state === "submitting"
+                                                      ? spanish
+                                                        ? "Enviando..."
+                                                        : "Sending..."
+                                                      : "Send"}
                                                   </span>
                                                 </span>
                                               </button>
                                             </div>
+                                            {quoteFormStatus.desktop.state !== "idle" && (
+                                              <p
+                                                className={`bull-form-status bull-form-status--${quoteFormStatus.desktop.state}`}
+                                                role="status"
+                                              >
+                                                {quoteFormStatus.desktop.message}
+                                              </p>
+                                            )}
                                           </div>
                                         </form>
                                       </div>
