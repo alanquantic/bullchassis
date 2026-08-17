@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { productCatalog } from "./siteContent.js";
+import { useFormToken } from "../../lib/useFormToken.js";
 
 const bodyClassName =
   "home wp-singular page-template-default page page-id-57 wp-theme-transx wp-child-theme-transx-child theme-transx woocommerce-js elementor-default elementor-kit-10 elementor-page elementor-page-57";
@@ -291,6 +292,7 @@ export default function MirroredPage({ spanish = false }) {
     mobile: initialFormStatus,
     desktop: initialFormStatus,
   });
+  const formToken = useFormToken();
   const localePath = spanish ? "/es/" : "/";
   const aboutPath = spanish ? "/es/sobre-nosotros/" : "/about-us/";
   const productPath = (slug) =>
@@ -346,6 +348,8 @@ export default function MirroredPage({ spanish = false }) {
       page: window.location.pathname,
       formId: formKey,
       website: String(formData.get("website") || "").trim(),
+      company_website: String(formData.get("company_website") || "").trim(),
+      formToken,
     };
 
     setQuoteFormStatus((current) => ({
@@ -2516,6 +2520,21 @@ export default function MirroredPage({ spanish = false }) {
                                             className="bull-hidden-honeypot"
                                             aria-hidden="true"
                                           />
+                                          <div
+                                            className="bull-hidden-honeypot"
+                                            aria-hidden="true"
+                                          >
+                                            <label htmlFor="company_website_mobile">
+                                              Company website
+                                            </label>
+                                            <input
+                                              type="text"
+                                              id="company_website_mobile"
+                                              name="company_website"
+                                              tabIndex={-1}
+                                              autoComplete="off"
+                                            />
+                                          </div>
                                           <div className="elementor-form-fields-wrapper elementor-labels-">
                                             <div className="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
                                               <label
@@ -2811,6 +2830,21 @@ export default function MirroredPage({ spanish = false }) {
                                             className="bull-hidden-honeypot"
                                             aria-hidden="true"
                                           />
+                                          <div
+                                            className="bull-hidden-honeypot"
+                                            aria-hidden="true"
+                                          >
+                                            <label htmlFor="company_website_desktop">
+                                              Company website
+                                            </label>
+                                            <input
+                                              type="text"
+                                              id="company_website_desktop"
+                                              name="company_website"
+                                              tabIndex={-1}
+                                              autoComplete="off"
+                                            />
+                                          </div>
                                           <div className="elementor-form-fields-wrapper elementor-labels-">
                                             <div className="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
                                               <label
