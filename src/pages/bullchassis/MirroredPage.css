@@ -1267,12 +1267,18 @@ body .transx_page-wrapper {
   background: #fff !important;
 }
 
+/* Honeypot: fuera de pantalla, nunca display:none ni type="hidden" (los bots
+   modernos detectan ambos). Invisible para lectores de pantalla vía
+   aria-hidden y fuera del orden de tabulación vía tabindex="-1". */
 .bull-hidden-honeypot {
+  height: 1px;
   left: -9999px;
   opacity: 0;
+  overflow: hidden;
   pointer-events: none;
   position: absolute;
-  top: auto;
+  top: -9999px;
+  width: 1px;
 }
 
 .bull-form-status {
